@@ -1,53 +1,32 @@
 <script setup>
-import HelloWorld from "./components/HelloWorld.vue";
-import TheWelcome from "./components/TheWelcome.vue";
+import EffectiveChart from "./components/EffectiveChart.vue";
+import TypeChart from "./components/TypeChart.vue";
 </script>
 
 <template>
-  <header>
-    <img
-      alt="Vue logo"
-      class="logo"
-      src="./assets/logo.svg"
-      width="125"
-      height="125"
-    />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
+  <div class="vertical-container">
+    <div style="text-align:center">
+      <h1>Poketoolbox</h1>
     </div>
-  </header>
+    <!-- <a href="https://poketoolbox.net"><img src="@/assets/logo.svg" alt="Logo"></a> -->
+    <!-- <h1 style="text-align:center">Title</h1> -->
+    <div>
+      <EffectiveChart />
+    </div>
+    <div>
+      <TypeChart />
+    </div>
+  </div>
 
-  <main>
-    <TheWelcome />
-  </main>
+
 </template>
 
 <style scoped>
-header {
-  line-height: 1.5;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
+.vertical-container {
+  max-width: 1280px;
+  display: flex;
+  flex-direction: column;
+  width: 75vw;
+  height: 100%;
 }
 </style>
