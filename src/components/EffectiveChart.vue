@@ -461,7 +461,7 @@ export default {
                 for(const leftItem of this.leftSelected)
                 {
                     if(this.types[rightItem][leftItem] == 1)  this.eachAdv.push({type: leftItem, vs: rightItem, effectiveness: 'Neutral', rawvalue: this.types[rightItem][leftItem]})
-                    if(this.types[rightItem][leftItem] < 1)  this.eachAdv.push({type: leftItem, vs: rightItem, effectiveness: 'Resistant', rawvalue: this.types[rightItem][leftItem]})
+                    if(this.types[rightItem][leftItem] < 1)  this.eachAdv.push({type: leftItem, vs: rightItem, effectiveness: 'Weak', rawvalue: this.types[rightItem][leftItem]})
                     if(this.types[rightItem][leftItem] > 1)  this.eachAdv.push({type: leftItem, vs: rightItem, effectiveness: 'Super Effective', rawvalue: this.types[rightItem][leftItem]})
                    
                     adv *= this.types[rightItem][leftItem]
@@ -482,19 +482,19 @@ export default {
     <div class="container">
         <div class="left-column">
             <div v-for="item in listOfTypes" style="float:left; width: 25%;padding: 5px">
-                <img class='iconImg' @click="leftSelect(item);" :ref="'l'+item" :src="`src/assets/typeicons/pokemon_type_icon_${item}.svg`">
+                <img class='iconImg' @click="leftSelect(item)" :ref="'l'+item" :src="`src/assets/typeicons/pokemon_type_icon_${item}.svg`">
             </div>
         </div>
         <div class="middle-column">
             <div class="rows">
                 <div class="cols">
                     <div v-for="leftItem in leftSelected" style="width: 80%;padding: 5px">
-                        <img @click="leftSelect(leftItem)"
+                        <img @click="leftSelect(leftItem)" :ref="'l'+leftItem"
                             :src="`src/assets/typeicons/pokemon_type_icon_${leftItem}.svg`">
                     </div>
                     <div style="text-align:center"> vs </div>
                     <div v-for="rightItem in rightSelected" style="width: 80%;padding: 5px">
-                        <img @click="rightSelect(rightSelect)"
+                        <img @click="rightSelect(rightItem)" :ref="'r'+rightItem"
                             :src="`src/assets/typeicons/pokemon_type_icon_${rightItem}.svg`">
                     </div>
                 </div>
