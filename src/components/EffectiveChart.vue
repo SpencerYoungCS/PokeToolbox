@@ -399,33 +399,57 @@ export default {
     {
         leftSelect(type)
         {
+            // if already exists drop it and recalculate
             const index = this.leftSelected.indexOf(type);
             if(index > -1) 
             {
-                this.leftSelected.splice(index, 1);
+                const leftItem =  this.leftSelected.splice(index, 1);;
+                const refName = `l${leftItem}`;
+                this.$refs[refName][0].classList.toggle("highlight", false);
                 this.currAdv = this.calculateAdvantage();
                 return;
             }
 
             this.leftSelected.push(type)
-            if(this.leftSelected.length > 2) this.leftSelected.shift();
+
+            // replace the last one and unhighlight it
+            if(this.leftSelected.length > 2)
+            {
+                const leftItem = this.leftSelected.shift();
+                const refName = `l${leftItem}`;
+                this.$refs[refName][0].classList.toggle("highlight", false);
+            }
             this.currAdv = this.calculateAdvantage();
-            console.log(this.eachAdv)
+
+            const refName = `l${type}`;
+            this.$refs[refName][0].classList.toggle("highlight", true);
+            // console.log(this.eachAdv)
         },
         rightSelect(type)
         {
+            // repeat logic from left side
             const index = this.rightSelected.indexOf(type);
             if(index > -1) 
             {
-                this.rightSelected.splice(index, 1);
+                const rightItem =  this.rightSelected.splice(index, 1);;
+                const refName = `r${rightItem}`;
+                this.$refs[refName][0].classList.toggle("highlight", false);
                 this.currAdv = this.calculateAdvantage();
                 return;
             }
 
             this.rightSelected.push(type)
-            if(this.rightSelected.length > 2) this.rightSelected.shift();
+            if(this.rightSelected.length > 2) 
+            {
+                const rightItem = this.rightSelected.shift();
+                const refName = `r${rightItem}`;
+                this.$refs[refName][0].classList.toggle("highlight", false);
+            }
             this.currAdv = this.calculateAdvantage();
-            console.log(this.eachAdv)
+
+            const refName = `r${type}`;
+            this.$refs[refName][0].classList.toggle("highlight", true);
+            // console.log(this.eachAdv)
         },
         calculateAdvantage()
         {
@@ -445,11 +469,6 @@ export default {
             }
             return adv;
         },
-        // toggleHighlight(image)
-        // {
-        //     image.classList.toggle('highlight');
-        // }
-
     },
     mounted()
     {
@@ -463,7 +482,7 @@ export default {
     <div class="container">
         <div class="left-column">
             <div v-for="item in listOfTypes" style="float:left; width: 25%;padding: 5px">
-                <img class='iconImg' @click="leftSelect(item)" onclick="this.classList.toggle('highlight')" :src="`src/assets/typeicons/pokemon_type_icon_${item}.svg`">
+                <img class='iconImg' @click="leftSelect(item);" :ref="'l'+item" :src="`src/assets/typeicons/pokemon_type_icon_${item}.svg`">
             </div>
         </div>
         <div class="middle-column">
@@ -491,7 +510,7 @@ export default {
         </div>
         <div class="right-column">
             <div v-for="item in listOfTypes" style="float:left; width: 25%; padding: 5px">
-                <img class='iconImg' @click="rightSelect(item)" :src="`src/assets/typeicons/pokemon_type_icon_${item}.svg`">
+                <img class='iconImg' @click="rightSelect(item)" :ref="'r'+item" :src="`src/assets/typeicons/pokemon_type_icon_${item}.svg`">
             </div>
         </div>
     
@@ -553,6 +572,6 @@ img
 }
 img.highlight
 {
-    outline:2px solid #ff0
+    outline:2px solid rgb(0, 255, 115)
 }
 </style>
